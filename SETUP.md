@@ -17,10 +17,10 @@ git branch -M main
 git push -u origin main
 ```
 
-## 3. Enable the live heatmap
-The workflow uses `secrets.GH_TOKEN` because the default `GITHUB_TOKEN` in
-Actions can't read your contribution calendar via GraphQL — it needs a
-personal token with `read:user` scope.
+## 3. Enable the live heatmap and commit caption
+Two scripts run on a schedule:
+- `scripts/generate_mark.py` — refreshes `al-mark.svg`'s "LAST PUSH — repo · Xh ago" caption using the REST API. Works even without a token (GitHub's public rate limit is enough for a daily run), but a token avoids rate-limit issues.
+- `scripts/generate_heatmap.py` — refreshes the contribution grid. This one needs a token: the default `GITHUB_TOKEN` in Actions can't read your contribution calendar via GraphQL, since that needs a personal token with `read:user` scope.
 
 - GitHub → Settings → Developer settings → Personal access tokens →
   Fine-grained tokens → generate one scoped to `read:user`, no repo access needed.

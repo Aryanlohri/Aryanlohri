@@ -19,6 +19,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Generate mark (live commit caption)
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: python scripts/generate_mark.py
+
       - name: Generate heatmap
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -28,6 +33,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add contrib-heatmap.svg
-          git diff --cached --quiet || git commit -m "chore: refresh contribution heatmap"
+          git add contrib-heatmap.svg al-mark.svg
+          git diff --cached --quiet || git commit -m "chore: refresh mark + heatmap"
           git push

@@ -1,16 +1,31 @@
 <div align="center">
 
-<a href="al-mark.svg"><img src="al-mark.svg" width="220" alt="AL"></a>
+<!-- hero: glitch-portrait (top-to-bottom reveal) beside the wordmark
+     (left-to-right wipe, then gentle rock on its vertical axis).
+     portrait: python scripts/generate_mark.py
+     wordmark: static file, wordmark.svg -->
 
-<br>
+### `aryan@github ~ $ whoami`
 
 <table>
 <tr>
-<td width="100%">
-<a href="info-card.svg"><img src="info-card.svg" alt="Aryan Lohri — info card"></a>
-</td>
+<td valign="top"><a href="al-mark.svg"><img src="al-mark.svg" width="320" alt="Aryan Lohri"></a></td>
+<td valign="top"><a href="wordmark.svg"><img src="wordmark.svg" width="420" alt="ARYAN LOHRI"></a></td>
 </tr>
 </table>
+
+<br>
+
+<!-- animated contribution graph: real data, diagonal cell-by-cell reveal
+     (regenerated daily by .github/workflows/update-readme.yml) -->
+
+### `aryan@github ~ $ ./contributions.sh`
+
+<a href="contrib-heatmap.svg"><img src="contrib-heatmap.svg" width="860" alt="Aryan's GitHub contribution graph — auto-refreshed daily"></a>
+
+<br><br>
+
+### `aryan@github ~ $ ./links.sh`
 
 <p align="center">
 <a href="https://aryanlohri.xyz"><img src="https://img.shields.io/badge/Portfolio-aryanlohri.xyz-0d1117?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio"></a>
@@ -19,10 +34,6 @@
 </p>
 
 <br>
-
-<a href="contrib-heatmap.svg"><img src="contrib-heatmap.svg" alt="Aryan's GitHub contribution graph — auto-refreshed daily"></a>
-
-<br><br>
 
 ### Building
 
