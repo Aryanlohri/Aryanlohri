@@ -7,7 +7,6 @@ Pure grayscale, no color tint. Animation layers:
 1. one-time reveal on load (CSS keyframes)
 2. grain flicker — animated film-grain texture, old-camera feel
 3. ambient particles — faint flecks drifting upward, dust in still air
-4. contour shimmer — a soft diagonal light sweep passing over the linework
 5. pulse border glow — the frame softly breathes
 6. VHS jitter — occasional quick horizontal jump on the figure only
 7. typewriter caption — the commit line types itself out on a loop
@@ -141,11 +140,6 @@ def build_svg(portrait_b64, caption):
       <feGaussianBlur stdDeviation="3"/>
     </filter>
 
-    <linearGradient id="shimmerGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#f5f5f5" stop-opacity="0"/>
-      <stop offset="50%" stop-color="#f5f5f5" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#f5f5f5" stop-opacity="0"/>
-    </linearGradient>
   </defs>
 
   <style>
@@ -167,16 +161,6 @@ def build_svg(portrait_b64, caption):
       10%  {{ opacity: var(--peak); }}
       85%  {{ opacity: var(--peak); }}
       100% {{ transform: translateY(-330px); opacity: 0; }}
-    }}
-
-    /* contour shimmer — soft diagonal light passing over the figure, on a loop */
-    .shimmer {{ animation: sweep 5.5s ease-in-out infinite; mix-blend-mode: screen; }}
-    @keyframes sweep {{
-      0%   {{ transform: translate(-260px, -80px) rotate(24deg); opacity: 0; }}
-      10%  {{ opacity: 0.5; }}
-      50%  {{ opacity: 0.5; }}
-      60%  {{ opacity: 0; }}
-      100% {{ transform: translate(260px, 80px) rotate(24deg); opacity: 0; }}
     }}
 
     /* VHS jitter — occasional quick horizontal jump, figure only */
@@ -208,7 +192,7 @@ def build_svg(portrait_b64, caption):
 
     @media (prefers-reduced-motion: reduce) {{
       .reveal {{ animation: none !important; opacity: 1 !important; transform: none !important; }}
-      .grainA, .grainB, .particle, .shimmer, .jitter, .glowRect, .borderMain, .capCursor {{ animation: none !important; }}
+      .grainA, .grainB, .particle, .jitter, .glowRect, .borderMain, .capCursor {{ animation: none !important; }}
       .capClipRect {{ animation: none !important; width: {CAPTION_BOX_WIDTH}px !important; }}
     }}
   </style>
@@ -240,7 +224,6 @@ def build_svg(portrait_b64, caption):
             {particles}
           </g>
 
-          <rect class="shimmer" x="-40" y="-160" width="70" height="480" fill="url(#shimmerGrad)"/>
         </g>
 
         <rect x="0" y="292" width="320" height="28" fill="#0a0a0a" opacity="0.8"/>

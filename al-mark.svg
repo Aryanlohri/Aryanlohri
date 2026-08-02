@@ -20,11 +20,6 @@
       <feGaussianBlur stdDeviation="3"/>
     </filter>
 
-    <linearGradient id="shimmerGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#f5f5f5" stop-opacity="0"/>
-      <stop offset="50%" stop-color="#f5f5f5" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#f5f5f5" stop-opacity="0"/>
-    </linearGradient>
   </defs>
 
   <style>
@@ -48,16 +43,6 @@
       100% { transform: translateY(-330px); opacity: 0; }
     }
 
-    /* contour shimmer — soft diagonal light passing over the figure, on a loop */
-    .shimmer { animation: sweep 5.5s ease-in-out infinite; mix-blend-mode: screen; }
-    @keyframes sweep {
-      0%   { transform: translate(-260px, -80px) rotate(24deg); opacity: 0; }
-      10%  { opacity: 0.5; }
-      50%  { opacity: 0.5; }
-      60%  { opacity: 0; }
-      100% { transform: translate(260px, 80px) rotate(24deg); opacity: 0; }
-    }
-
     /* VHS jitter — occasional quick horizontal jump, figure only */
     .jitter { animation: vhsJitter 6s steps(1) infinite; }
     @keyframes vhsJitter {
@@ -75,11 +60,11 @@
     @keyframes borderPulse { 0%, 100% { stroke: #2a2a2a; } 50% { stroke: #565656; } }
 
     /* typewriter caption — types out, holds, resets, loops */
-    .capClipRect { animation: typeLoop 5.15s steps(50) infinite; }
+    .capClipRect { animation: typeLoop 3.65s steps(25) infinite; }
     @keyframes typeLoop {
       0%    { width: 0; }
-      58.25%  { width: 288px; }
-      93.2% { width: 288px; }
+      41.1%  { width: 288px; }
+      90.41% { width: 288px; }
       100%  { width: 0; }
     }
     .capCursor { animation: blink 0.9s steps(1) infinite; }
@@ -87,7 +72,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .reveal { animation: none !important; opacity: 1 !important; transform: none !important; }
-      .grainA, .grainB, .particle, .shimmer, .jitter, .glowRect, .borderMain, .capCursor { animation: none !important; }
+      .grainA, .grainB, .particle, .jitter, .glowRect, .borderMain, .capCursor { animation: none !important; }
       .capClipRect { animation: none !important; width: 288px !important; }
     }
   </style>
@@ -131,7 +116,6 @@
       <circle class="particle" cx="297.1" cy="300" r="1.45" fill="#f5f5f5" style="--peak:0.37; animation-duration:8.23s; animation-delay:6.16s;"/>
           </g>
 
-          <rect class="shimmer" x="-40" y="-160" width="70" height="480" fill="url(#shimmerGrad)"/>
         </g>
 
         <rect x="0" y="292" width="320" height="28" fill="#0a0a0a" opacity="0.8"/>
@@ -143,7 +127,7 @@
 
     <g clip-path="url(#capClip)">
       <text x="16" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1"
-            textLength="288" lengthAdjust="spacingAndGlyphs">LAST COMMIT — Centered the Profile Logo · JUST NOW</text>
+            textLength="288" lengthAdjust="spacingAndGlyphs">LAST COMMIT — UNAVAILABLE</text>
     </g>
     <rect class="capCursor" x="308" y="299" width="2" height="12" fill="#f5f5f5"/>
   </g>
