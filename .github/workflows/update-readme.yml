@@ -2,24 +2,33 @@ name: Update contribution heatmap
 
 on:
   schedule:
-    - cron: "0 3 * * *"   # daily at 03:00 UTC (~8:30 AM IST)
+    - cron: "0 3 * * *" # Daily at 03:00 UTC
   workflow_dispatch:
-  push:
-    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-profile
+  cancel-in-progress: true
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Generate mark (live commit caption)
+      - name: Generate mark
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: python scripts/generate_mark.py
@@ -29,10 +38,27 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: python scripts/generate_heatmap.py
 
-      - name: Commit if changed
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add contrib-heatmap.svg al-mark.svg
-          git diff --cached --quiet || git commit -m "chore: refresh mark + heatmap"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: refresh mark + heatmap"
+
+      - name: Sync with remote
+        run: |
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin HEAD:main
