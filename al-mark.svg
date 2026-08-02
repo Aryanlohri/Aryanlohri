@@ -1,0 +1,24 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" font-family="'JetBrains Mono','Courier New',monospace">
+  <rect width="320" height="320" fill="#0a0a0a"/>
+
+  <!-- fine grid -->
+  <g stroke="#161616" stroke-width="1">
+    <line x1="80" y1="0" x2="80" y2="320"/>
+    <line x1="160" y1="0" x2="160" y2="320"/>
+    <line x1="240" y1="0" x2="240" y2="320"/>
+    <line x1="0" y1="107" x2="320" y2="107"/>
+    <line x1="0" y1="213" x2="320" y2="213"/>
+  </g>
+  <rect x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+
+  <!-- glitch offset layers -->
+  <text x="160" y="200" fill="#ff2e2e" font-size="140" font-weight="800" text-anchor="middle" opacity="0.55" transform="translate(-3,0)">AL</text>
+  <text x="160" y="200" fill="#2ee6ff" font-size="140" font-weight="800" text-anchor="middle" opacity="0.55" transform="translate(3,0)">AL</text>
+  <text x="160" y="200" fill="#f5f5f5" font-size="140" font-weight="800" text-anchor="middle">AL</text>
+
+  <!-- scan line accents -->
+  <rect x="0" y="150" width="320" height="2" fill="#f5f5f5" opacity="0.06"/>
+  <rect x="0" y="188" width="320" height="1" fill="#f5f5f5" opacity="0.08"/>
+
+  <text x="160" y="290" fill="#6a6a6a" font-size="12" letter-spacing="4" text-anchor="middle">GITHUB.COM/ARYANLOHRI</text>
+</svg>
