@@ -8,6 +8,9 @@ Pure grayscale, no color tint. Animation layers:
 2. grain flicker — animated film-grain texture, old-camera feel
 3. ambient particles — faint flecks drifting upward, dust in still air
 4. contour shimmer — a soft diagonal light sweep passing over the linework
+5. pulse border glow — the frame softly breathes
+6. VHS jitter — occasional quick horizontal jump on the figure only
+7. typewriter caption — the commit line types itself out on a loop
 """
 
 import os
@@ -22,6 +25,9 @@ USERNAME = "Aryanlohri"
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 PORTRAIT_PATH = os.path.join(ROOT, "assets", "portrait.png")
 OUT_PATH = os.path.join(ROOT, "al-mark.svg")
+
+CAPTION_X = 16
+CAPTION_BOX_WIDTH = 288
 
 
 def _headers(token):
@@ -95,12 +101,27 @@ def particles_svg():
     return "\n      ".join(parts)
 
 
+def typewriter_timing(caption_len):
+    reveal_dur = max(1.0, round(caption_len * 0.06, 2))
+    hold_dur = 1.8
+    gap_dur = 0.35
+    total = round(reveal_dur + hold_dur + gap_dur, 2)
+    reveal_pct = round(reveal_dur / total * 100, 2)
+    hold_end_pct = round((reveal_dur + hold_dur) / total * 100, 2)
+    steps = max(caption_len, 1)
+    return total, reveal_pct, hold_end_pct, steps
+
+
 def build_svg(portrait_b64, caption):
     particles = particles_svg()
+    total, reveal_pct, hold_end_pct, steps = typewriter_timing(len(caption))
+    cursor_x = CAPTION_X + CAPTION_BOX_WIDTH + 4
+
     return f'''<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="'JetBrains Mono','Courier New',monospace">
   <defs>
     <clipPath id="frame"><rect x="0" y="0" width="320" height="320"/></clipPath>
     <clipPath id="inner"><rect x="0" y="0" width="320" height="290"/></clipPath>
+    <clipPath id="capClip"><rect class="capClipRect" x="{CAPTION_X}" y="297" width="0" height="16"/></clipPath>
     <image id="portrait" width="320" height="320" preserveAspectRatio="xMidYMid slice"
       xlink:href="data:image/png;base64,{portrait_b64}"/>
 
@@ -113,6 +134,9 @@ def build_svg(portrait_b64, caption):
       <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="9" result="n"/>
       <feColorMatrix in="n" type="saturate" values="0"/>
       <feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer>
+    </filter>
+    <filter id="borderGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3"/>
     </filter>
 
     <linearGradient id="shimmerGrad" x1="0" y1="0" x2="1" y2="0">
@@ -128,9 +152,6 @@ def build_svg(portrait_b64, caption):
       0%   {{ opacity: 0; transform: translateY(-16px); }}
       100% {{ opacity: 1; transform: translateY(0); }}
     }}
-
-    .cap {{ opacity: 0; animation: capIn 0.5s ease-out 0.8s both; }}
-    @keyframes capIn {{ from {{ opacity: 0; }} to {{ opacity: 1; }} }}
 
     /* grain flicker — two noise fields cross-fading fast, old-camera feel */
     .grainA {{ animation: grainFlicker 0.5s steps(1) infinite; }}
@@ -156,9 +177,37 @@ def build_svg(portrait_b64, caption):
       100% {{ transform: translate(260px, 80px) rotate(24deg); opacity: 0; }}
     }}
 
+    /* VHS jitter — occasional quick horizontal jump, figure only */
+    .jitter {{ animation: vhsJitter 6s steps(1) infinite; }}
+    @keyframes vhsJitter {{
+      0%, 92%, 100% {{ transform: translateX(0); }}
+      93% {{ transform: translateX(-3px); }}
+      94% {{ transform: translateX(2px); }}
+      95% {{ transform: translateX(-1px); }}
+      96% {{ transform: translateX(0); }}
+    }}
+
+    /* pulse border glow — frame softly breathes */
+    .glowRect {{ animation: glowPulse 3s ease-in-out infinite; }}
+    @keyframes glowPulse {{ 0%, 100% {{ opacity: 0; }} 50% {{ opacity: 0.4; }} }}
+    .borderMain {{ animation: borderPulse 3s ease-in-out infinite; }}
+    @keyframes borderPulse {{ 0%, 100% {{ stroke: #2a2a2a; }} 50% {{ stroke: #565656; }} }}
+
+    /* typewriter caption — types out, holds, resets, loops */
+    .capClipRect {{ animation: typeLoop {total}s steps({steps}) infinite; }}
+    @keyframes typeLoop {{
+      0%    {{ width: 0; }}
+      {reveal_pct}%  {{ width: {CAPTION_BOX_WIDTH}px; }}
+      {hold_end_pct}% {{ width: {CAPTION_BOX_WIDTH}px; }}
+      100%  {{ width: 0; }}
+    }}
+    .capCursor {{ animation: blink 0.9s steps(1) infinite; }}
+    @keyframes blink {{ 0%, 49% {{ opacity: 1; }} 50%, 100% {{ opacity: 0; }} }}
+
     @media (prefers-reduced-motion: reduce) {{
-      .reveal, .cap {{ animation: none !important; opacity: 1 !important; transform: none !important; }}
-      .grainA, .grainB, .particle, .shimmer {{ animation: none !important; opacity: 0 !important; }}
+      .reveal {{ animation: none !important; opacity: 1 !important; transform: none !important; }}
+      .grainA, .grainB, .particle, .shimmer, .jitter, .glowRect, .borderMain, .capCursor {{ animation: none !important; }}
+      .capClipRect {{ animation: none !important; width: {CAPTION_BOX_WIDTH}px !important; }}
     }}
   </style>
 
@@ -167,14 +216,14 @@ def build_svg(portrait_b64, caption):
       <rect width="320" height="320" fill="#0a0a0a"/>
 
       <g stroke="#161616" stroke-width="1">
-        <line x1="80" y1="0" x2="80" y2="320"/>
         <line x1="160" y1="0" x2="160" y2="320"/>
-        <line x1="240" y1="0" x2="240" y2="320"/>
         <line x1="0" y1="107" x2="320" y2="107"/>
         <line x1="0" y1="213" x2="320" y2="213"/>
       </g>
 
-      <use xlink:href="#portrait" x="0" y="0"/>
+      <g class="jitter">
+        <use xlink:href="#portrait" x="0" y="0"/>
+      </g>
 
       <g clip-path="url(#inner)">
         <rect class="grainA" x="0" y="0" width="320" height="320" filter="url(#grain1)" opacity="0"/>
@@ -191,9 +240,14 @@ def build_svg(portrait_b64, caption):
     </g>
   </g>
 
-  <rect x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
-  <text class="cap" x="16" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1"
-        textLength="290" lengthAdjust="spacingAndGlyphs">{caption}</text>
+  <rect class="glowRect" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#f5f5f5" stroke-width="2" filter="url(#borderGlow)" opacity="0"/>
+  <rect class="borderMain" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+
+  <g clip-path="url(#capClip)">
+    <text x="{CAPTION_X}" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1"
+          textLength="{CAPTION_BOX_WIDTH}" lengthAdjust="spacingAndGlyphs">{caption}</text>
+  </g>
+  <rect class="capCursor" x="{cursor_x}" y="299" width="2" height="12" fill="#f5f5f5"/>
 </svg>
 '''
 
