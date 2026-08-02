@@ -138,21 +138,60 @@ def render_svg(calendar):
 
 
 def synthetic_calendar():
-    random.seed(7)
+    """
+    Fallback so the file still renders something sensible before the
+    workflow's first authenticated run. Modeled loosely on a working
+    student dev: heavier on weekdays, quiet weekends, a couple of
+    multi-week dead zones (exams), and a few high-intensity streaks
+    (project pushes) rather than uniform noise.
+    """
+    random.seed(11)
     today = date.today()
     start = today - timedelta(days=today.weekday() + 7 * 52 + (6 - today.weekday()))
     start -= timedelta(days=(start.weekday() + 1) % 7)
 
+    total_days = 53 * 7
+    all_days = [start + timedelta(days=i) for i in range(total_days)]
+
+    # a few quiet stretches (exam season / breaks), ~10-18 days each
+    quiet_zones = []
+    for _ in range(3):
+        zone_start = random.randint(0, total_days - 20)
+        zone_len = random.randint(10, 18)
+        quiet_zones.append(range(zone_start, zone_start + zone_len))
+
+    # a few high-intensity streaks (shipping something), ~4-8 days each
+    hot_zones = []
+    for _ in range(4):
+        zone_start = random.randint(0, total_days - 10)
+        zone_len = random.randint(4, 8)
+        hot_zones.append(range(zone_start, zone_start + zone_len))
+
+    def in_any(i, zones):
+        return any(i in z for z in zones)
+
     weeks = []
-    d = start
     total = 0
+    idx = 0
     for _ in range(53):
         days = []
         for _ in range(7):
-            count = 0 if d > today else max(0, int(random.gauss(4, 4)))
+            d = all_days[idx]
+            if d > today:
+                count = 0
+            elif in_any(idx, quiet_zones):
+                count = 0 if random.random() < 0.75 else 1
+            else:
+                is_weekend = d.weekday() >= 5
+                base = 1.6 if is_weekend else 3.4
+                if in_any(idx, hot_zones):
+                    base += 6
+                # skip-day chance keeps it looking human, not a daily streak
+                skip_chance = 0.5 if is_weekend else 0.22
+                count = 0 if random.random() < skip_chance else max(0, round(random.gauss(base, 2.2)))
             total += count
             days.append({"date": d.isoformat(), "contributionCount": count})
-            d += timedelta(days=1)
+            idx += 1
         weeks.append({"contributionDays": days})
 
     return {"totalContributions": total, "weeks": weeks}

@@ -9,17 +9,8 @@
 
 <table>
 <tr>
-<td valign="top">
-<a href="al-mark.svg">
-<img src="https://raw.githubusercontent.com/Aryanlohri/Aryanlohri/main/al-mark.svg?raw=1" width="320" alt="Aryan Lohri">
-</a>
-</td>
-
-<td valign="top">
-<a href="wordmark.svg">
-<img src="https://raw.githubusercontent.com/Aryanlohri/Aryanlohri/main/wordmark.svg?raw=1" width="420" alt="ARYAN LOHRI">
-</a>
-</td>
+<td valign="top"><a href="al-mark.svg"><img src="al-mark.svg" width="320" alt="Aryan Lohri"></a></td>
+<td valign="top"><a href="wordmark.svg"><img src="wordmark.svg" width="420" alt="ARYAN LOHRI"></a></td>
 </tr>
 </table>
 
@@ -30,11 +21,7 @@
 
 ### `aryan@github ~ $ ./contributions.sh`
 
-<a href="https://github.com/Aryanlohri">
-<img src="https://raw.githubusercontent.com/Aryanlohri/Aryanlohri/main/contrib-heatmap.svg?raw=1"
-     width="860"
-     alt="Aryan's GitHub contribution graph — auto-refreshed daily">
-</a>
+<a href="contrib-heatmap.svg"><img src="contrib-heatmap.svg" width="860" alt="Aryan's GitHub contribution graph — auto-refreshed daily"></a>
 
 <br><br>
 
