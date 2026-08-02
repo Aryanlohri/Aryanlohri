@@ -49,11 +49,5 @@
   </g>
 
   <rect x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
-<<<<<<< HEAD
-  <text x="16" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1.5" opacity="0">LAST PUSH — ARYANLOHRI · JUST NOW
-    <animate attributeName="opacity" from="0" to="1" dur="0.5s" begin="1.0s" fill="freeze"/>
-  </text>
-=======
-  <text class="cap" x="16" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1.5">LAST COMMIT — UNAVAILABLE</text>
->>>>>>> 1b6d417 (profile: last commit caption, centered crop, CSS animations)
+  <text class="cap" x="16" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1.5">LAST COMMIT — Fix workflow · 1M AGO</text>
 </svg>
