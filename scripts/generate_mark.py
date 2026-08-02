@@ -116,8 +116,10 @@ def build_svg(portrait_b64, caption):
     particles = particles_svg()
     total, reveal_pct, hold_end_pct, steps = typewriter_timing(len(caption))
     cursor_x = CAPTION_X + CAPTION_BOX_WIDTH + 4
+    BAR = 30
+    H = 320 + BAR
 
-    return f'''<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="'JetBrains Mono','Courier New',monospace">
+    return f'''<svg width="320" height="{H}" viewBox="0 0 320 {H}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="'JetBrains Mono','Courier New',monospace">
   <defs>
     <clipPath id="frame"><rect x="0" y="0" width="320" height="320"/></clipPath>
     <clipPath id="inner"><rect x="0" y="0" width="320" height="290"/></clipPath>
@@ -211,43 +213,51 @@ def build_svg(portrait_b64, caption):
     }}
   </style>
 
-  <g clip-path="url(#frame)">
-    <g class="reveal">
-      <rect width="320" height="320" fill="#0a0a0a"/>
+  <rect width="320" height="{H}" fill="#0a0a0a"/>
 
-      <g stroke="#161616" stroke-width="1">
-        <line x1="160" y1="0" x2="160" y2="320"/>
-        <line x1="0" y1="107" x2="320" y2="107"/>
-        <line x1="0" y1="213" x2="320" y2="213"/>
-      </g>
+  <!-- terminal title bar -->
+  <rect x="0" y="0" width="320" height="{BAR}" fill="#111111"/>
+  <line x1="0" y1="{BAR}" x2="320" y2="{BAR}" stroke="#2a2a2a" stroke-width="1"/>
+  <circle cx="16" cy="15" r="4.5" fill="#4a4a4a"/>
+  <circle cx="30" cy="15" r="4.5" fill="#4a4a4a"/>
+  <circle cx="44" cy="15" r="4.5" fill="#4a4a4a"/>
+  <text x="304" y="19" fill="#5a5a5a" font-size="10" letter-spacing="1" text-anchor="end">~/portrait.sh</text>
 
-      <g class="jitter">
-        <use xlink:href="#portrait" x="0" y="0"/>
-      </g>
+  <g transform="translate(0,{BAR})">
+    <g clip-path="url(#frame)">
+      <g class="reveal">
+        <rect width="320" height="320" fill="#0a0a0a"/>
 
-      <g clip-path="url(#inner)">
-        <rect class="grainA" x="0" y="0" width="320" height="320" filter="url(#grain1)" opacity="0"/>
-        <rect class="grainB" x="0" y="0" width="320" height="320" filter="url(#grain2)" opacity="0"/>
-
-        <g>
-          {particles}
+        <g class="jitter">
+          <use xlink:href="#portrait" x="0" y="0"/>
         </g>
 
-        <rect class="shimmer" x="-40" y="-160" width="70" height="480" fill="url(#shimmerGrad)"/>
+        <g clip-path="url(#inner)">
+          <rect class="grainA" x="0" y="0" width="320" height="320" filter="url(#grain1)" opacity="0"/>
+          <rect class="grainB" x="0" y="0" width="320" height="320" filter="url(#grain2)" opacity="0"/>
+
+          <g>
+            {particles}
+          </g>
+
+          <rect class="shimmer" x="-40" y="-160" width="70" height="480" fill="url(#shimmerGrad)"/>
+        </g>
+
+        <rect x="0" y="292" width="320" height="28" fill="#0a0a0a" opacity="0.8"/>
       </g>
-
-      <rect x="0" y="292" width="320" height="28" fill="#0a0a0a" opacity="0.8"/>
     </g>
+
+    <rect class="glowRect" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#f5f5f5" stroke-width="2" filter="url(#borderGlow)" opacity="0"/>
+    <rect class="borderMain" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+
+    <g clip-path="url(#capClip)">
+      <text x="{CAPTION_X}" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1"
+            textLength="{CAPTION_BOX_WIDTH}" lengthAdjust="spacingAndGlyphs">{caption}</text>
+    </g>
+    <rect class="capCursor" x="{cursor_x}" y="299" width="2" height="12" fill="#f5f5f5"/>
   </g>
 
-  <rect class="glowRect" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#f5f5f5" stroke-width="2" filter="url(#borderGlow)" opacity="0"/>
-  <rect class="borderMain" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
-
-  <g clip-path="url(#capClip)">
-    <text x="{CAPTION_X}" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1"
-          textLength="{CAPTION_BOX_WIDTH}" lengthAdjust="spacingAndGlyphs">{caption}</text>
-  </g>
-  <rect class="capCursor" x="{cursor_x}" y="299" width="2" height="12" fill="#f5f5f5"/>
+  <rect x="0.5" y="0.5" width="319" height="{H-1}" fill="none" stroke="#2a2a2a" stroke-width="1"/>
 </svg>
 '''
 

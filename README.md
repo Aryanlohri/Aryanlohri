@@ -1,11 +1,10 @@
 <div align="center">
 
-<!-- hero: glitch-portrait (top-to-bottom reveal) beside the wordmark
-     (left-to-right wipe, then gentle rock on its vertical axis).
+<!-- hero: two separate terminal-window panels — portrait (top-to-bottom
+     reveal) and wordmark (wipe + rock). Each SVG bakes in its own
+     title-bar chrome since GitHub strips custom CSS from README HTML.
      portrait: python scripts/generate_mark.py
      wordmark: static file, wordmark.svg -->
-
-### `aryan@github ~ $ whoami`
 
 <table>
 <tr>
