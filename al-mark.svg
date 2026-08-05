@@ -60,11 +60,11 @@
     @keyframes borderPulse { 0%, 100% { stroke: #2a2a2a; } 50% { stroke: #565656; } }
 
     /* typewriter caption — types out, holds, resets, loops */
-    .capClipRect { animation: typeLoop 5.33s steps(53) infinite; }
+    .capClipRect { animation: typeLoop 5.39s steps(54) infinite; }
     @keyframes typeLoop {
       0%    { width: 0; }
-      59.66%  { width: 288px; }
-      93.43% { width: 288px; }
+      60.11%  { width: 288px; }
+      93.51% { width: 288px; }
       100%  { width: 0; }
     }
     .capCursor { animation: blink 0.9s steps(1) infinite; }
@@ -127,7 +127,7 @@
 
     <g clip-path="url(#capClip)">
       <text x="16" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1"
-            textLength="288" lengthAdjust="spacingAndGlyphs">LAST COMMIT — chore: refresh mark + heatmap · 23H AGO</text>
+            textLength="288" lengthAdjust="spacingAndGlyphs">LAST COMMIT — chore: update package-lock.js… · 10H AGO</text>
     </g>
     <rect class="capCursor" x="308" y="299" width="2" height="12" fill="#f5f5f5"/>
   </g>
