@@ -394,5 +394,6 @@
 <rect class="c e" x="866" y="40" width="13" height="13" rx="2.5" fill="#161b22" style="animation-delay:3.416s"/>
 <rect class="c e" x="866" y="56" width="13" height="13" rx="2.5" fill="#161b22" style="animation-delay:3.452s"/>
 <rect class="c e" x="866" y="72" width="13" height="13" rx="2.5" fill="#161b22" style="animation-delay:3.488s"/>
+<rect class="c e" x="866" y="88" width="13" height="13" rx="2.5" fill="#161b22" style="animation-delay:3.524s"/>
 <text class="total" x="34" y="153">370 contributions in the last year</text>
 </svg>
