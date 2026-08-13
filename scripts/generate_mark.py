@@ -213,7 +213,7 @@ def build_svg(portrait_b64, caption):
         <rect width="320" height="320" fill="#0a0a0a"/>
 
         <g class="jitter">
-          <use xlink:href="#portrait" x="0" y="0"/>
+          <use xlink:href="#portrait" x="0" y="0" transform="translate(-10, 0) scale(1.08)"/>
         </g>
 
         <g clip-path="url(#inner)">
