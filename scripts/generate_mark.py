@@ -37,13 +37,16 @@ def _headers(token):
 
 
 def fetch_last_commit(token):
-    url = f"https://api.github.com/users/{USERNAME}/repos?sort=pushed&direction=desc&per_page=1"
+    url = f"https://api.github.com/users/{USERNAME}/repos?sort=pushed&direction=desc&per_page=10"
     req = urllib.request.Request(url, headers=_headers(token))
     with urllib.request.urlopen(req) as resp:
         repos = json.load(resp)
-    if not repos:
+        
+    public_repo = next((r for r in repos if not r.get("private")), None)
+    if not public_repo:
         return None
-    repo = repos[0]["name"]
+        
+    repo = public_repo["name"]
 
     url = f"https://api.github.com/repos/{USERNAME}/{repo}/commits?per_page=1"
     req = urllib.request.Request(url, headers=_headers(token))
