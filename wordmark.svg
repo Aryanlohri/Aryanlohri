@@ -1,44 +1,32 @@
-<svg width="420" height="350" viewBox="0 0 420 350" xmlns="http://www.w3.org/2000/svg" font-family="'JetBrains Mono','Courier New',monospace">
+<svg width="420" height="350" viewBox="0 0 420 350" xmlns="http://www.w3.org/2000/svg" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
   <style>
-    .wipe { animation: wipeIn 0.8s cubic-bezier(.16,1,.3,1) both; transform-box: fill-box; transform-origin: center; }
-    @keyframes wipeIn {
-      0%   { opacity: 0; transform: translateX(-28px); }
-      100% { opacity: 1; transform: translateX(0); }
-    }
-    .rock { animation: rock 4.5s ease-in-out 0.8s infinite; transform-box: fill-box; transform-origin: center; }
-    @keyframes rock {
-      0%   { transform: rotate(0deg); }
-      33%  { transform: rotate(2.5deg); }
-      66%  { transform: rotate(-2.5deg); }
-      100% { transform: rotate(0deg); }
-    }
-    .tag { opacity: 0; animation: tagIn 0.6s ease-out 0.9s both; }
-    @keyframes tagIn { from { opacity: 0; } to { opacity: 1; } }
+    .promptText { animation: typePrompt 0.72s steps(8,end) 0.18s both; }
+    @keyframes typePrompt { to { clip-path: inset(0 0 0 0); } }
+    .promptCursor { opacity:0; animation: cursorMotion 1.12s steps(8,end) 0.18s both, promptBlink 0.72s steps(1,end) 0.18s 2 backwards; }
+    @keyframes promptBlink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
+    @keyframes cursorMotion { 0% { transform:translateX(0); } 65% { transform:translateX(77px); } 100% { transform:translate(77px,81px); } }
+    .name { animation: nameIn 0.48s ease-out 1.34s both; }
+    @keyframes nameIn { from { opacity:0; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+    .tag { animation: tagIn 0.42s ease-out 2.02s both; }
+    @keyframes tagIn { from { opacity:0; } to { opacity:1; } }
+    .tagCursor { animation: tagBlink 0.72s steps(1,end) 2.44s infinite backwards; }
+    @keyframes tagBlink { 0%,49% { opacity:1; } 50%,100% { opacity:0; } }
     @media (prefers-reduced-motion: reduce) {
-      .wipe, .rock, .tag { animation: none !important; opacity: 1 !important; transform: none !important; }
+      .promptText, .promptCursor, .name, .tag, .tagCursor { animation:none !important; opacity:1 !important; clip-path:none !important; transform:none !important; }
+      .promptCursor { opacity:0 !important; }
+      .tagCursor { opacity:1 !important; }
     }
   </style>
-
-  <rect width="420" height="350" fill="#0a0a0a"/>
-
-  <!-- terminal title bar -->
-  <rect x="0" y="0" width="420" height="30" fill="#111111"/>
-  <line x1="0" y1="30" x2="420" y2="30" stroke="#2a2a2a" stroke-width="1"/>
-  <circle cx="16" cy="15" r="4.5" fill="#4a4a4a"/>
-  <circle cx="30" cy="15" r="4.5" fill="#4a4a4a"/>
-  <circle cx="44" cy="15" r="4.5" fill="#4a4a4a"/>
-  <text x="404" y="19" fill="#5a5a5a" font-size="10" letter-spacing="1" text-anchor="end">~/wordmark.sh</text>
-
-  <g transform="translate(0,30)">
-    <rect x="0.5" y="0.5" width="419" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
-
-    <g class="wipe">
-      <g class="rock">
-        <text x="210" y="160" fill="#f5f5f5" font-size="56" font-weight="800" letter-spacing="2" text-anchor="middle">ARYAN</text>
-        <text x="210" y="216" fill="#f5f5f5" font-size="56" font-weight="800" letter-spacing="2" text-anchor="middle">LOHRI</text>
-      </g>
-    </g>
-
-    <text class="tag" x="210" y="252" fill="#6a6a6a" font-size="12" letter-spacing="3" text-anchor="middle">FULLSTACK DEVELOPER · AI/ML</text>
+  <rect width="420" height="350" rx="8" fill="#0a0a0a"/>
+  <path d="M8 .75H412A7.25 7.25 0 0 1 419.25 8V30H.75V8A7.25 7.25 0 0 1 8 .75Z" fill="#151515"/>
+  <path d="M.75 30H419.25M.75 30V342A7.25 7.25 0 0 0 8 349.25H412A7.25 7.25 0 0 0 419.25 342V30" fill="none" stroke="#383838" stroke-width="1.5"/>
+  <circle cx="16" cy="15" r="4.5" fill="#e06c75"/><circle cx="30" cy="15" r="4.5" fill="#e5b567"/><circle cx="44" cy="15" r="4.5" fill="#8ccf7e"/>
+  <text x="404" y="19" fill="#929292" font-size="10" letter-spacing="1" text-anchor="end">~/wordmark.sh</text>
+  <text class="promptText" x="32" y="86" fill="#d0d0d0" font-size="16" style="clip-path:inset(0 0 0 0)">$ whoami</text>
+  <rect class="promptCursor" x="32" y="70" width="9" height="17" fill="#d0d0d0"/>
+  <g class="name" fill="#f5f5f5" font-size="56" font-weight="800" letter-spacing="2" text-anchor="middle" opacity="1">
+    <text x="210" y="160">ARYAN</text><text x="210" y="216">LOHRI</text>
   </g>
+  <text class="tag" x="210" y="252" fill="#bcbcbc" font-size="12" letter-spacing="3" text-anchor="middle" opacity="1">FULLSTACK DEVELOPER · AI/ML</text>
+  <rect class="tagCursor" x="352" y="241" width="8" height="15" fill="#a855f7" opacity="1"/>
 </svg>

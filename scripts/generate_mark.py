@@ -121,7 +121,7 @@ def build_svg(portrait_b64, caption):
     BAR = 30
     H = 320 + BAR
 
-    return f'''<svg width="320" height="{H}" viewBox="0 0 320 {H}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="'JetBrains Mono','Courier New',monospace">
+    return f'''<svg width="320" height="{H}" viewBox="0 0 320 {H}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
   <defs>
     <clipPath id="frame"><rect x="0" y="0" width="320" height="320"/></clipPath>
     <clipPath id="inner"><rect x="0" y="0" width="320" height="290"/></clipPath>
@@ -180,7 +180,7 @@ def build_svg(portrait_b64, caption):
     .glowRect {{ animation: glowPulse 3s ease-in-out infinite; }}
     @keyframes glowPulse {{ 0%, 100% {{ opacity: 0; }} 50% {{ opacity: 0.4; }} }}
     .borderMain {{ animation: borderPulse 3s ease-in-out infinite; }}
-    @keyframes borderPulse {{ 0%, 100% {{ stroke: #2a2a2a; }} 50% {{ stroke: #565656; }} }}
+    @keyframes borderPulse {{ 0%, 100% {{ stroke: #383838; }} 50% {{ stroke: #565656; }} }}
 
     /* typewriter caption — types out, holds, resets, loops */
     .capClipRect {{ animation: typeLoop {total}s steps({steps}) infinite; }}
@@ -200,15 +200,15 @@ def build_svg(portrait_b64, caption):
     }}
   </style>
 
-  <rect width="320" height="{H}" fill="#0a0a0a"/>
+  <rect width="320" height="{H}" rx="8" fill="#0a0a0a"/>
 
   <!-- terminal title bar -->
-  <rect x="0" y="0" width="320" height="{BAR}" fill="#111111"/>
-  <line x1="0" y1="{BAR}" x2="320" y2="{BAR}" stroke="#2a2a2a" stroke-width="1"/>
-  <circle cx="16" cy="15" r="4.5" fill="#4a4a4a"/>
-  <circle cx="30" cy="15" r="4.5" fill="#4a4a4a"/>
-  <circle cx="44" cy="15" r="4.5" fill="#4a4a4a"/>
-  <text x="304" y="19" fill="#5a5a5a" font-size="10" letter-spacing="1" text-anchor="end">~/portrait.sh</text>
+  <path d="M8 .75H312A7.25 7.25 0 0 1 319.25 8V30H.75V8A7.25 7.25 0 0 1 8 .75Z" fill="#151515"/>
+  <path d="M.75 30H319.25M.75 30V342A7.25 7.25 0 0 0 8 349.25H312A7.25 7.25 0 0 0 319.25 342V30" fill="none" stroke="#383838" stroke-width="1.5"/>
+  <circle cx="16" cy="15" r="4.5" fill="#e06c75"/>
+  <circle cx="30" cy="15" r="4.5" fill="#e5b567"/>
+  <circle cx="44" cy="15" r="4.5" fill="#8ccf7e"/>
+  <text x="304" y="19" fill="#929292" font-size="10" letter-spacing="1" text-anchor="end">~/portrait.sh</text>
 
   <g transform="translate(0,{BAR})">
     <g clip-path="url(#frame)">
@@ -216,7 +216,7 @@ def build_svg(portrait_b64, caption):
         <rect width="320" height="320" fill="#0a0a0a"/>
 
         <g class="jitter">
-          <use xlink:href="#portrait" x="0" y="0" transform="translate(-10, 0) scale(1.08)"/>
+          <use xlink:href="#portrait" x="0" y="0" transform="translate(65, 0) scale(1.08)"/>
         </g>
 
         <g clip-path="url(#inner)">
@@ -234,16 +234,11 @@ def build_svg(portrait_b64, caption):
     </g>
 
     <rect class="glowRect" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#f5f5f5" stroke-width="2" filter="url(#borderGlow)" opacity="0"/>
-    <rect class="borderMain" x="0.5" y="0.5" width="319" height="319" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+    <rect class="borderMain" x="0.75" y="0.75" width="318.5" height="318.5" rx="7.25" fill="none" stroke="#383838" stroke-width="1.5"/>
 
-    <g clip-path="url(#capClip)">
-      <text x="{CAPTION_X}" y="310" fill="#8a8a8a" font-size="10.5" letter-spacing="1"
-            textLength="{CAPTION_BOX_WIDTH}" lengthAdjust="spacingAndGlyphs">{caption}</text>
-    </g>
-    <rect class="capCursor" x="{cursor_x}" y="299" width="2" height="12" fill="#f5f5f5"/>
   </g>
 
-  <rect x="0.5" y="0.5" width="319" height="{H-1}" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <rect x="0.75" y="0.75" width="318.5" height="{H-1.5}" rx="7.25" fill="none" stroke="#383838" stroke-width="1.5"/>
 </svg>
 '''
 

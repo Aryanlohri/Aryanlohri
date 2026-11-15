@@ -1,10 +1,7 @@
 <div align="center">
 
-<!-- hero: two separate terminal-window panels — portrait (top-to-bottom
-     reveal) and wordmark (wipe + rock). Each SVG bakes in its own
-     title-bar chrome since GitHub strips custom CSS from README HTML.
-     portrait: python scripts/generate_mark.py
-     wordmark: static file, wordmark.svg -->
+<!-- hero: matched terminal-window panels. Portrait uses al-mark.svg;
+     wordmark types in once and holds its final frame. -->
 
 <table>
 <tr>
