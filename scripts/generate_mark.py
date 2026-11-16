@@ -229,7 +229,6 @@ def build_svg(portrait_b64, caption):
 
         </g>
 
-        <rect x="0" y="292" width="320" height="28" fill="#0a0a0a" opacity="0.8"/>
       </g>
     </g>
 
@@ -262,7 +261,7 @@ def main():
         caption = "LAST COMMIT \u2014 UNAVAILABLE"
 
     svg = build_svg(portrait_b64, caption)
-    with open(OUT_PATH, "w") as f:
+    with open(OUT_PATH, "w", encoding="utf-8") as f:
         f.write(svg)
     print(f"Wrote {OUT_PATH} ({caption})")
 
