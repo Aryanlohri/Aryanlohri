@@ -127,6 +127,11 @@ def build_svg(portrait_b64, caption):
     <clipPath id="capClip"><rect class="capClipRect" x="{CAPTION_X}" y="297" width="0" height="16"/></clipPath>
     <image id="portrait" width="320" height="320" preserveAspectRatio="xMidYMid slice"
       xlink:href="data:image/png;base64,{portrait_b64}"/>
+    <radialGradient id="filmBurnGradient" gradientUnits="userSpaceOnUse" cx="0" cy="160" r="150">
+      <stop offset="0" stop-color="#ffc47a" stop-opacity="0.32"/>
+      <stop offset="0.38" stop-color="#f46c43" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#f46c43" stop-opacity="0"/>
+    </radialGradient>
 
     <filter id="grain1" x="0" y="0" width="100%" height="100%">
       <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" result="n"/>
@@ -149,6 +154,17 @@ def build_svg(portrait_b64, caption):
     @keyframes revealIn {{
       0%   {{ opacity: 0; transform: translateY(-16px); }}
       100% {{ opacity: 1; transform: translateY(0); }}
+    }}
+
+    /* brief, low-intensity edge flare with a long dark pause */
+    .filmBurn {{ opacity: 0; animation: filmBurnFlicker 13s ease-in-out infinite; }}
+    @keyframes filmBurnFlicker {{
+      0%, 68%, 82%, 100% {{ opacity: 0; }}
+      71% {{ opacity: 0.08; }}
+      73% {{ opacity: 0.26; }}
+      75% {{ opacity: 0.12; }}
+      77% {{ opacity: 0.2; }}
+      79% {{ opacity: 0.04; }}
     }}
 
     /* grain flicker — two noise fields cross-fading fast, old-camera feel */
@@ -194,7 +210,7 @@ def build_svg(portrait_b64, caption):
 
     @media (prefers-reduced-motion: reduce) {{
       .reveal {{ animation: none !important; opacity: 1 !important; transform: none !important; }}
-      .grainA, .grainB, .particle, .jitter, .glowRect, .borderMain, .capCursor {{ animation: none !important; }}
+      .grainA, .grainB, .particle, .jitter, .glowRect, .borderMain, .capCursor, .filmBurn {{ animation: none !important; }}
       .capClipRect {{ animation: none !important; width: {CAPTION_BOX_WIDTH}px !important; }}
     }}
   </style>
@@ -215,6 +231,7 @@ def build_svg(portrait_b64, caption):
         <rect width="320" height="320" fill="#0a0a0a"/>
 
         <use xlink:href="#portrait" x="0" y="0"/>
+        <rect class="filmBurn" x="0" y="0" width="320" height="320" fill="url(#filmBurnGradient)" pointer-events="none"/>
 
       </g>
     </g>
