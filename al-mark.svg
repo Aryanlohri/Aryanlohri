@@ -92,31 +92,7 @@
       <g class="reveal">
         <rect width="320" height="320" fill="#0a0a0a"/>
 
-        <g class="jitter">
-          <use xlink:href="#portrait" x="0" y="0" transform="translate(65, 0) scale(1.08)"/>
-        </g>
-
-        <g clip-path="url(#inner)">
-          <rect class="grainA" x="0" y="0" width="320" height="320" filter="url(#grain1)" opacity="0"/>
-          <rect class="grainB" x="0" y="0" width="320" height="320" filter="url(#grain2)" opacity="0"/>
-
-          <g>
-            <circle class="particle" cx="199.0" cy="300" r="1.02" fill="#f5f5f5" style="--peak:0.35; animation-duration:7.1s; animation-delay:2.01s;"/>
-      <circle class="particle" cx="209.5" cy="300" r="1.62" fill="#f5f5f5" style="--peak:0.23; animation-duration:6.35s; animation-delay:3.8s;"/>
-      <circle class="particle" cx="81.2" cy="300" r="1.35" fill="#f5f5f5" style="--peak:0.34; animation-duration:6.11s; animation-delay:1.79s;"/>
-      <circle class="particle" cx="172.6" cy="300" r="1.15" fill="#f5f5f5" style="--peak:0.22; animation-duration:8.36s; animation-delay:7.28s;"/>
-      <circle class="particle" cx="245.6" cy="300" r="1.49" fill="#f5f5f5" style="--peak:0.39; animation-duration:7.36s; animation-delay:1.4s;"/>
-      <circle class="particle" cx="114.2" cy="300" r="1.06" fill="#f5f5f5" style="--peak:0.33; animation-duration:6.39s; animation-delay:7.63s;"/>
-      <circle class="particle" cx="246.0" cy="300" r="1.51" fill="#f5f5f5" style="--peak:0.29; animation-duration:8.14s; animation-delay:8.76s;"/>
-      <circle class="particle" cx="174.6" cy="300" r="1.58" fill="#f5f5f5" style="--peak:0.32; animation-duration:8.47s; animation-delay:7.76s;"/>
-      <circle class="particle" cx="217.3" cy="300" r="1.03" fill="#f5f5f5" style="--peak:0.23; animation-duration:6.91s; animation-delay:2.6s;"/>
-      <circle class="particle" cx="85.2" cy="300" r="1.07" fill="#f5f5f5" style="--peak:0.29; animation-duration:7.11s; animation-delay:5.72s;"/>
-      <circle class="particle" cx="123.7" cy="300" r="1.15" fill="#f5f5f5" style="--peak:0.34; animation-duration:7.07s; animation-delay:8.43s;"/>
-      <circle class="particle" cx="190.6" cy="300" r="1.12" fill="#f5f5f5" style="--peak:0.29; animation-duration:8.92s; animation-delay:1.47s;"/>
-      <circle class="particle" cx="297.1" cy="300" r="1.45" fill="#f5f5f5" style="--peak:0.37; animation-duration:8.23s; animation-delay:6.16s;"/>
-          </g>
-
-        </g>
+        <use xlink:href="#portrait" x="0" y="0"/>
 
       </g>
     </g>

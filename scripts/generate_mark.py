@@ -115,7 +115,6 @@ def typewriter_timing(caption_len):
 
 
 def build_svg(portrait_b64, caption):
-    particles = particles_svg()
     total, reveal_pct, hold_end_pct, steps = typewriter_timing(len(caption))
     cursor_x = CAPTION_X + CAPTION_BOX_WIDTH + 4
     BAR = 30
@@ -215,19 +214,7 @@ def build_svg(portrait_b64, caption):
       <g class="reveal">
         <rect width="320" height="320" fill="#0a0a0a"/>
 
-        <g class="jitter">
-          <use xlink:href="#portrait" x="0" y="0" transform="translate(65, 0) scale(1.08)"/>
-        </g>
-
-        <g clip-path="url(#inner)">
-          <rect class="grainA" x="0" y="0" width="320" height="320" filter="url(#grain1)" opacity="0"/>
-          <rect class="grainB" x="0" y="0" width="320" height="320" filter="url(#grain2)" opacity="0"/>
-
-          <g>
-            {particles}
-          </g>
-
-        </g>
+        <use xlink:href="#portrait" x="0" y="0"/>
 
       </g>
     </g>
