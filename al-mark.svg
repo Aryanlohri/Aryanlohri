@@ -76,11 +76,11 @@
     @keyframes borderPulse { 0%, 100% { stroke: #383838; } 50% { stroke: #565656; } }
 
     /* typewriter caption — types out, holds, resets, loops */
-    .capClipRect { animation: typeLoop 5.27s steps(52) infinite; }
+    .capClipRect { animation: typeLoop 5.33s steps(53) infinite; }
     @keyframes typeLoop {
       0%    { width: 0; }
-      59.2%  { width: 288px; }
-      93.36% { width: 288px; }
+      59.66%  { width: 288px; }
+      93.43% { width: 288px; }
       100%  { width: 0; }
     }
     .capCursor { animation: blink 0.9s steps(1) infinite; }
